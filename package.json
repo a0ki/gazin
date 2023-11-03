@@ -1,4 +1,6 @@
 {
+  "name": "Gazin Dashboard",
+  "description": "Desafio GazinTech",
   "private": true,
   "license": "MIT",
   "scripts": {
