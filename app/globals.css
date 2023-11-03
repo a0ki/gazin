@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .bg-image {
-  background-image: url('/dist/img/bg.png');
+  background-image: url('/static/bg.png');
   background-size: cover;
   background-position: center;
 }

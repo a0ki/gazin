@@ -6,10 +6,12 @@ import {
   SelectItem,
 } from '@nextui-org/react';
 import Link from 'next/link';
-import { useMemo, useState } from 'react'; // Removido o import não utilizado
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { signIn } from 'next-auth/react';
+import Image from 'next/image';
+import logoSvg from '../../public/static/logo.svg';
 
 export default function RegisterForm() {
   // Inicialização dos estados para os campos do formulário
@@ -123,7 +125,7 @@ export default function RegisterForm() {
   return (
     <div className='grid place-items-center h-screen'>
       <div className='shadow-lg p-5 rounded-lg border-t-4 border-blue-gazin'>
-        <img id='register-logo' src='/dist/img/logo.svg' alt='Logo' className='mb-4' />
+        <Image src={logoSvg} alt='Logo' width={400} className='mb-4' />
 
         <form id='register-form'
           autoComplete='off'
