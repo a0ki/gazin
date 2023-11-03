@@ -1,52 +1,87 @@
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import logoSvg from '../../../public/static/logo.svg';
+import { Input, Button } from '@nextui-org/react';
 
 export default function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
 
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (form.email === '' || !form.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i)) {
+      toast.error('Digite um e-mail válido');
+      return;
+    }
+    if (form.password === '' || form.password.length < 6) {
+      toast.error('Digite uma senha válida');
+      return;
+    }
+
     const res = await signIn('credentials', {
-      email,
-      password,
+      email: form.email,
+      password: form.password,
       redirect: false,
     });
     if (res?.error) {
-      toast.error('Credenciais invalidas');
+      toast.error('Credenciais inválidas');
       return;
     }
     setTimeout(() => router.push('/dashboard'));
   };
 
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  const validateField = (field) => {
+    switch (field) {
+      case 'email':
+        if (form.email === '') return false;
+        return form.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i) ? false : true;
+      case 'password':
+        if (form.password === '') return false;
+        return !(form.password.length >= 6);
+      default:
+        return false;
+    }
+  };
+
   return (
-    <div className='grid place-items-center h-screen'>
+    <div className='flex items-center justify-center min-h-screen'>
       <div className='shadow-lg p-5 rounded-lg border-t-4 border-blue-gazin'>
         <Image src={logoSvg} alt='Logo' width={400} className='mb-4' />
 
         <form onSubmit={handleSubmit} className='flex flex-col gap-3'>
-          <input
-            onChange={(e) => setEmail(e.target.value)}
+          <Input
+            onChange={handleFormChange}
             type='text'
-            placeholder='Email'
-            className='w-[400px] border border-blue-gazin py-2 px-6 bg-zinc-100/40'
+            name='email'
+            placeholder='E-mail'
+            className='max-w-md'
+            isInvalid={validateField('email')}
+            errorMessage={validateField('email') && 'Digite um e-mail válido'}
           />
-          <input
-            onChange={(e) => setPassword(e.target.value)}
+          <Input
+            onChange={handleFormChange}
             type='password'
-            placeholder='Password'
-            className='w-[400px] border border-blue-gazin py-2 px-6 bg-zinc-100/40'
+            name='password'
+            placeholder='Senha'
+            className='max-w-md'
           />
-          <button className='bg-blue-gazin text-white font-bold cursor-pointer px-6 py-2'>
+          <Button type='submit' color='primary' loading={false} className='text-white'>
             Login
-          </button>
+          </Button>
           <Link href={'/register'}>
             Não tem uma conta? <span className='underline'>Cadastre-se</span>.
           </Link>

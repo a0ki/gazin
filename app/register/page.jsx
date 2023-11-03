@@ -123,20 +123,22 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className='grid place-items-center h-screen'>
+    <div className='flex items-center justify-center min-h-screen'>
       <div className='shadow-lg p-5 rounded-lg border-t-4 border-blue-gazin'>
         <Image src={logoSvg} alt='Logo' width={400} className='mb-4' />
 
-        <form id='register-form'
+        <form
+          id='register-form'
           autoComplete='off'
           onSubmit={handleSubmit}
-          className='flex flex-col gap-3'>
+          className='flex flex-col gap-3'
+        >
           <Input
             id='register-name'
             type='text'
             name='name'
             variant='underlined'
-            className='w-[400px] bg-zinc-100/40'
+            className='w-[90%] max-w-md bg-zinc-100/40'
             placeholder='Nome'
             description='Seu nome completo'
             onChange={onFormChange}
@@ -146,7 +148,7 @@ export default function RegisterForm() {
             type='email'
             name='email'
             variant='underlined'
-            className='w-[400px] bg-zinc-100/40'
+            className='w-[90%] max-w-md bg-zinc-100/40'
             placeholder='Email'
             isInvalid={validateField('email')}
             color={validateField('email') ? 'danger' : 'success'}
@@ -159,7 +161,7 @@ export default function RegisterForm() {
             type='password'
             name='password'
             variant='underlined'
-            className='w-[400px] bg-zinc-100/40'
+            className='w-[90%] max-w-md bg-zinc-100/40'
             placeholder='Senha'
             isInvalid={validateField('password')}
             color={validateField('password') ? 'danger' : 'success'}
@@ -172,11 +174,13 @@ export default function RegisterForm() {
             type='password'
             name='confirmPassword'
             variant='underlined'
-            className='w-[400px] bg-zinc-100/40'
+            className='w-[90%] max-w-md bg-zinc-100/40'
             placeholder='Senha'
             isInvalid={validateField('password-confirm')}
             color={validateField('password-confirm') ? 'danger' : 'success'}
-            errorMessage={validateField('password-confirm') && 'As senhas não coincidem'}
+            errorMessage={
+              validateField('password-confirm') && 'As senhas não coincidem'
+            }
             description='Confirme sua senha'
             onChange={onFormChange}
           />
@@ -186,7 +190,7 @@ export default function RegisterForm() {
               type='text'
               name='gender'
               variant='underlined'
-              className='w-[400px] bg-zinc-100/40'
+              className='w-[90%] max-w-md bg-zinc-100/40'
               placeholder='Seu pronome'
               description='Gênero'
               onChange={onFormChange}
@@ -195,15 +199,23 @@ export default function RegisterForm() {
             <Select
               name='gender'
               variant='underlined'
-              className='w-[400px] bg-zinc-100/40'
+              className='w-[90%] max-w-md bg-zinc-100/40'
               label='Gênero'
               placeholder='Gênero'
               onChange={onFormChange}
             >
-              <SelectItem key='Masculino' value='Masculino'>Masculino</SelectItem>
-              <SelectItem key='Feminino' value='Feminino'>Feminino</SelectItem>
-              <SelectItem key='Privado' value='Prefiro não dizer'>Prefiro não dizer</SelectItem>
-              <SelectItem key='Outro' value='Outro'>Outro</SelectItem>
+              <SelectItem key='Masculino' value='Masculino'>
+                Masculino
+              </SelectItem>
+              <SelectItem key='Feminino' value='Feminino'>
+                Feminino
+              </SelectItem>
+              <SelectItem key='Prefiro não dizer' value='Prefiro não dizer'>
+                Prefiro não dizer
+              </SelectItem>
+              <SelectItem key='Outro' value='Outro'>
+                Outro
+              </SelectItem>
             </Select>
           )}
           <Input
@@ -211,7 +223,7 @@ export default function RegisterForm() {
             type='date'
             name='birthdate'
             variant='underlined'
-            className='w-[400px] bg-zinc-100/40'
+            className='w-[90%] max-w-md bg-zinc-100/40'
             placeholder='Data de Nascimento'
             description='Sua data de nascimento'
             onChange={onFormChange}
@@ -222,12 +234,17 @@ export default function RegisterForm() {
             type='text'
             name='hobby'
             variant='underlined'
-            className='w-[400px] bg-zinc-100/40'
+            className='w-[90%] max-w-md bg-zinc-100/40'
             placeholder='Hobby'
-            description='Oque mais gosta de fazer?'
+            description='O que mais gosta de fazer?'
             onChange={onFormChange}
           />
-          <Button type='submit' color='primary' className='text-white' isLoading={isFetching}>
+          <Button
+            type='submit'
+            color='primary'
+            className='text-white'
+            isLoading={isFetching}
+          >
             Registrar
           </Button>
 
