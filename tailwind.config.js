@@ -15,7 +15,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@headlessui/tailwindcss'), nextui({
+  plugins: [nextui({
     themes: {
       light: {
         colors: {
