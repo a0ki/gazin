@@ -219,7 +219,7 @@ export const NiveisContent = () => {
                 </div>
                 <div className='flex justify-between items-center'>
                     <span className='text-default-400 text-small'>
-                        Mostrando {sortedItems.length} de {roles.items.length} desenvolvedores
+                        Mostrando {sortedItems.length} de {roles.items.length} níveis
                     </span>
                     <label className='flex items-center text-default-400 text-small'>
                         Linhas por página:
